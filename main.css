@@ -1,5 +1,9 @@
 /* @import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"); */
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: "Courier New", Courier, monospace;
   /* font-family: "Open Sans", sans-serif; */
@@ -8,6 +12,7 @@ body {
 section.main {
   display: grid;
   grid-template-columns: 1fr;
+  background-color: #444444;
 }
 
 /* header */
@@ -19,19 +24,20 @@ header {
   flex-wrap: wrap;
   z-index: 2;
   padding: 1em 4em;
-  background-color: #eee;
+  background-color: #0a0708;
+  color: #fff;
 }
 
 header .logo {
   text-decoration: none;
-  font-weight: 600;
-  color: #000;
+  font-weight: 500;
+  color: #fff;
 }
 
 header .nav {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   margin: 0 2em 0 auto;
 }
 
@@ -42,13 +48,13 @@ header .nav li {
 
 header .nav li a {
   text-decoration: none;
-  color: #000;
+  color: darkgrey;
   font-weight: 300;
   letter-spacing: 0.5px;
 }
 
 header .nav li a:hover {
-  color: darkgrey;
+  color: #fff;
 }
 
 header .search {
@@ -58,17 +64,18 @@ header .search {
 }
 
 header .search input {
+  color: #fff;
   width: 100%;
   height: 100%;
   background: transparent;
   outline: none;
-  border: 1px solid #000;
+  border: 1px solid #fff;
   border-radius: 0.25em;
   padding: 0 0.75em 0 2.5em;
 }
 
 header .search input::placeholder {
-  color: #000;
+  color: #fff;
 }
 
 header .search .fa-search {
@@ -76,8 +83,21 @@ header .search .fa-search {
   top: 50%;
   transform: translateY(-50%);
   left: 0.5em;
-  border-right: 2px solid #000;
+  border-right: 2px solid #fff;
   padding-right: 0.5em;
+}
+
+.welcome {
+  height: 90vh;
+  justify-self: center;
+}
+
+.welcome h1 {
+  padding: 2em;
+  color: #cab000;
+  font-weight: 200;
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  text-align: center;
 }
 
 main {
@@ -196,7 +216,7 @@ main {
   position: absolute;
   transform: translateY(100%);
   left: 0;
-  color: #16e590;
+  color: #14be77;
 }
 
 .text-reveal {
@@ -261,7 +281,7 @@ main {
 }
 
 .play-button .polygon {
-  fill: #16e590;
+  fill: #14be77;
   transition: transform 0.5s, fill 0.5s;
   transition-timing-function: cubic-bezier(0.7, 0.01, 0.37, 1);
   transform-origin: 50% 50%;
@@ -270,7 +290,7 @@ main {
 /* footer */
 
 footer {
-  background-color: #ddd;
+  background-color: #747474;
   display: flex;
   justify-content: space-between;
   align-content: center;
@@ -288,7 +308,7 @@ footer p a {
 }
 
 footer p a:hover {
-  color: darkgrey;
+  color: #fff;
 }
 
 /* responsiveness */
@@ -301,6 +321,10 @@ footer p a:hover {
   header .search {
     width: 55%;
   }
+
+  header .nav {
+    margin: 0.5em 0;
+  }
 }
 
 @media (max-width: 600px) {
@@ -310,5 +334,17 @@ footer p a:hover {
 
   header .search {
     width: 100%;
+  }
+}
+
+@media (max-width: 350px) {
+  header .nav li {
+    margin: 0.5em;
+  }
+  header .nav li:nth-child(1) {
+    margin-left: 0;
+  }
+  header .nav li:nth-child(2) {
+    margin-right: 0;
   }
 }
