@@ -1,7 +1,8 @@
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"); */
 
 body {
-  font-family: "Open Sans", sans-serif;
+  font-family: "Courier New", Courier, monospace;
+  /* font-family: "Open Sans", sans-serif; */
 }
 
 section.main {
@@ -21,7 +22,7 @@ header {
 
 header .logo {
   text-decoration: none;
-  font-weight: bolder;
+  font-weight: 600;
   color: #000;
 }
 
@@ -40,7 +41,7 @@ header .nav li {
 header .nav li a {
   text-decoration: none;
   color: #000;
-  font-weight: 500;
+  font-weight: 00;
   letter-spacing: 0.5px;
 }
 
@@ -89,9 +90,31 @@ main {
   height: 350px;
 }
 
+/* footer */
+
 footer {
   background-color: #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  padding: 0 2em;
 }
+
+footer p {
+  font-size: 1.125em;
+}
+
+footer p a {
+  margin: 0 0 0 1em;
+  color: #000;
+}
+
+footer p a:hover {
+  color: darkgrey;
+}
+
+/* responsiveness */
 
 @media (max-width: 1000px) {
   header {
@@ -104,6 +127,10 @@ footer {
 }
 
 @media (max-width: 600px) {
+  footer {
+    flex-direction: column-reverse;
+  }
+
   header .search {
     width: 100%;
   }
