@@ -22,7 +22,6 @@ function addTodo(event) {
   todoDiv.classList.add("todo");
 
   const newTodo = document.createElement("li");
-  
   newTodo.innerText = todoInput.value;
   newTodo.classList.add("todo-item");
   todoDiv.appendChild(newTodo);
@@ -98,6 +97,7 @@ function filterTodo(e) {
 }
 
 function saveLocalTodos(todo) {
+  // checking if any todo is already in local storage
   let todos;
   if (localStorage.getItem("todos") === null) {
     todos = [];
@@ -115,26 +115,32 @@ function getTodos() {
   } else {
     todos = JSON.parse(localStorage.getItem("todos"));
   }
+
   todos.forEach(function (todo) {
 
     const todoDiv = document.createElement("div");
     todoDiv.classList.add("todo");
+
     const newTodo = document.createElement("li");
     newTodo.innerText = todo;
     newTodo.classList.add("todo-item");
     todoDiv.appendChild(newTodo);
+
     const completedButton = document.createElement("button");
     completedButton.innerHTML = '<i class="fas fa-check"></i>';
     completedButton.classList.add("complete-btn");
     todoDiv.appendChild(completedButton);
+
     const renameButton = document.createElement("button");
     renameButton.innerHTML = '<i class="fas fa-pencil-alt"></i>';
     renameButton.classList.add("rename-btn");
     todoDiv.appendChild(renameButton);
+
     const trashButton = document.createElement("button");
     trashButton.innerHTML = '<i class="fas fa-trash"></i>';
     trashButton.classList.add("trash-btn");
     todoDiv.appendChild(trashButton);
+
     todoList.appendChild(todoDiv);
   });
 }
@@ -146,7 +152,8 @@ function removeLocalTodos(todo) {
   } else {
     todos = JSON.parse(localStorage.getItem("todos"));
   }
-  const todoIndex = todo.children[0].innerText;
-  todos.splice(todos.indexOf(todoIndex), 1);
+
+  const todoValue = todo.children[0].innerText;
+  todos.splice(todos.indexOf(todoValue), 1);
   localStorage.setItem("todos", JSON.stringify(todos));
 }
