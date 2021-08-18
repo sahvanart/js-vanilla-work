@@ -276,6 +276,10 @@ main {
   transition: 0.5s;
 }
 
+.play-button:hover {
+  fill: #14be77;
+}
+
 .play-button svg {
   overflow: visible;
 }

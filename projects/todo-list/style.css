@@ -6,7 +6,7 @@
 
 body {
   background-image: linear-gradient(120deg, #0c0c3f, #1b0846);
-  color: #feed70;
+  color: #beb466;
   font-family: "Poppins", sans-serif;
   min-height: 100vh;
 }
@@ -29,11 +29,11 @@ form button {
   font-size: 1.25rem;
   border: none;
   outline: none;
-  background: white;
+  background: rgba(255, 255, 255, 0.808);
 }
 
 form button {
-  color: white;
+  color: rgba(255, 255, 255, 0.808);
   background: #061048;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -62,7 +62,7 @@ form button:hover {
 
 .todo {
   margin: 0.5rem;
-  background: white;
+  background: rgba(255, 255, 255, 0.808);
   color: black;
   font-size: 1rem;
   display: flex;
@@ -121,10 +121,11 @@ select {
   box-shadow: none;
   border: none;
   font-size: 1.25rem;
-  color: #061048;
+  color: rgb(99, 99, 99);
   width: 15rem;
   cursor: pointer;
   padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.808);
 }
 
 .select {
@@ -135,7 +136,7 @@ select {
 
 .select::after {
   content: "\25BC";
-  color: white;
+  color: rgba(255, 255, 255, 0.808);
   position: absolute;
   background: #061048;
   top: 0;
