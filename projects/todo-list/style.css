@@ -13,6 +13,11 @@ body {
 
 header {
   font-size: 1.5rem;
+  flex-direction: column;
+}
+
+h1 {
+  margin-bottom: 1rem;
 }
 
 header,
@@ -42,6 +47,24 @@ form button {
 form button:hover {
   color: #feed70;
   transform: rotate(180deg);
+}
+
+.alert {
+  width: 50%;
+  height: 1.5rem;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  margin: 0 auto 1rem auto;
+  text-align: center;
+}
+
+.alert-danger {
+  color: #501218;
+  background: #d69999;
+}
+.alert-success {
+  color: #155724;
+  background: #d4edda;
 }
 
 .bordered {
