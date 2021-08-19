@@ -127,7 +127,9 @@ form button.todo-button:hover {
 }
 
 .fa-trash,
-.fa-check {
+.fa-check, 
+.fa-pencil-alt,
+.fa-edit {
   pointer-events: none;
 }
 

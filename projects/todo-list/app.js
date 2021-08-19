@@ -28,12 +28,12 @@ function addTodo(event) {
   // prevent form from submitting
   event.preventDefault();
   const inputValue = todoInput.value;
+  const id = new Date().getTime().toString();
 
   if (inputValue && !editFlag) {
     const todoDiv = document.createElement("div");
     todoDiv.classList.add("todo");
 
-    const id = new Date().getTime().toString();
     let idAttribute = document.createAttribute("data-id");
     idAttribute.value = id;
 
@@ -62,43 +62,17 @@ function addTodo(event) {
     // adding todo item to the list
     todoList.appendChild(todoDiv);
 
-    saveLocalTodos(inputValue);
+    addToLocalStorage(id, inputValue);
     displayAlert("Todo successfully added", "success");
+    setBackToDefault();
+  } else if (inputValue && editFlag) {
+    editElement.innerHTML = inputValue;
+    displayAlert("Todo value changed", "success");
+    editLocalStorage(editID, inputValue);
     setBackToDefault();
   } else {
     displayAlert("Please enter a todo", "danger");
   }  
-}
-
-// clear items
-function clearItems() {
-  console.log('ok');
-  const todoItems = document.querySelectorAll(".todo");
-  if (todoItems.length > 0) {
-    todoItems.forEach(function (item) {
-      todoList.removeChild(item);
-    });
-  }
-  setBackToDefault();
-  localStorage.removeItem("todos");
-}
-
-// display alert
-function displayAlert(text, action) {
-  alert.textContent = text;
-  alert.classList.add(`alert-${action}`);
-  // remove alert
-  setTimeout(function () {
-    alert.textContent = "";
-    alert.classList.remove(`alert-${action}`);
-  }, 2000);
-}
-
-function setBackToDefault() {
-  todoInput.value = "";
-  editFlag = false;
-  editID = "";
-  // default submit icon
 }
 
 function actionCheck(e) {
@@ -108,16 +82,28 @@ function actionCheck(e) {
   if (item.classList[0] === "trash-btn") {
     const todo = item.parentElement;
     todo.classList.add("fall");
-    removeLocalTodos(todo);
+    todoID = e.target.parentElement.firstElementChild.dataset.id;
+    removeFromLocalStorage(todoID);
     todo.addEventListener("transitionend", function () {
       todo.remove();
     });
+    setBackToDefault();
   }
 
-  // check mark 
+  // check todo 
   if (item.classList[0] === "complete-btn") {
     const todo = item.parentElement;
     todo.classList.toggle("completed");
+  }
+
+  // edit todo
+  if (item.classList[0] === "rename-btn") {
+    const todo = item.parentElement;
+    editElement = e.target.parentElement.firstElementChild;
+    todoInput.value = editElement.innerHTML;
+    editFlag = true;
+    editID = editElement.dataset.id;
+    todoButton.innerHTML = '<i class="fas fa-edit"></i>';
   }
 }
 
@@ -146,24 +132,42 @@ function filterTodo(e) {
   });
 }
 
-function saveLocalTodos(todo) {
-  // checking if any todo is already in local storage
-  let todos;
-  if (localStorage.getItem("todos") === null) {
-    todos = [];
-  } else {
-    todos = JSON.parse(localStorage.getItem("todos"));
+// clear items
+function clearItems() {
+  const todoItems = document.querySelectorAll(".todo");
+  if (todoItems.length > 0) {
+    todoItems.forEach(function (item) {
+      todoList.removeChild(item);
+    });
   }
-  todos.push(todo);
-  localStorage.setItem("todos", JSON.stringify(todos));
+  setBackToDefault();
+  localStorage.removeItem("list");
+}
+
+// display alert
+function displayAlert(text, action) {
+  alert.textContent = text;
+  alert.classList.add(`alert-${action}`);
+  // remove alert
+  setTimeout(function () {
+    alert.textContent = "";
+    alert.classList.remove(`alert-${action}`);
+  }, 2000);
+}
+
+function setBackToDefault() {
+  todoInput.value = "";
+  editFlag = false;
+  editID = "";
+  todoButton.innerHTML = '<i class="fas fa-plus"></i>';
 }
 
 function getTodos() {
   let todos;
-  if (localStorage.getItem("todos") === null) {
+  if (localStorage.getItem("list") === null) {
     todos = [];
   } else {
-    todos = JSON.parse(localStorage.getItem("todos"));
+    todos = JSON.parse(localStorage.getItem("list"));
   }
 
   todos.forEach(function (todo) {
@@ -172,7 +176,7 @@ function getTodos() {
     todoDiv.classList.add("todo");
 
     const newTodo = document.createElement("li");
-    newTodo.innerText = todo;
+    newTodo.innerText = todo.value;
     newTodo.classList.add("todo-item");
     todoDiv.appendChild(newTodo);
 
@@ -195,16 +199,39 @@ function getTodos() {
   });
 }
 
-function removeLocalTodos(todo) {
-  let todos;
-  if (localStorage.getItem("todos") === null) {
-    todos = [];
-  } else {
-    todos = JSON.parse(localStorage.getItem("todos"));
-  }
-
-  const todoValue = todo.children[0].innerText;
-  todos.splice(todos.indexOf(todoValue), 1);
-  localStorage.setItem("todos", JSON.stringify(todos));
+function addToLocalStorage(id, value) {
+  const todoItems = { id, value };
+  let items = getLocalStorage();
+  items.push(todoItems);
+  localStorage.setItem("list", JSON.stringify(items));
 }
 
+function getLocalStorage() {
+  return localStorage.getItem("list")
+    ? JSON.parse(localStorage.getItem("list"))
+    : [];
+}
+
+function editLocalStorage(id, value) {
+  let items = getLocalStorage();
+
+  items = items.map(function (item) {
+    if (item.id === id) {
+      item.value = value;
+    }
+    return item;
+  });
+  localStorage.setItem("list", JSON.stringify(items));
+}
+
+function removeFromLocalStorage(id) {
+  let items = getLocalStorage();
+
+  items = items.filter(function (item) {
+    if (item.id !== id) {
+      return item;
+    }
+  });
+
+  localStorage.setItem("list", JSON.stringify(items));
+}
