@@ -5,11 +5,13 @@ const todoButton = document.querySelector(".todo-button");
 const todoList = document.querySelector(".todo-list");
 const filterOption = document.querySelector(".filter-todo");
 const alert = document.querySelector(".alert");
+const clearBtn = document.querySelector(".clear-btn");
+
 
 // edit option variables
-// let editElement;
-// let editFlag = false;
-// let editID = "";
+let editElement;
+let editFlag = false;
+let editID = "";
 
 // Event Listeners
 
@@ -17,6 +19,8 @@ window.addEventListener("DOMContentLoaded", getTodos);
 todoButton.addEventListener("click", addTodo);
 todoList.addEventListener("click", actionCheck);
 filterOption.addEventListener("input", filterTodo);
+clearBtn.addEventListener("click", clearItems);
+
 
 // Functions
 
@@ -24,32 +28,31 @@ function addTodo(event) {
   // prevent form from submitting
   event.preventDefault();
   const inputValue = todoInput.value;
-  // const id = new Date().getTime().toString();
 
   if (inputValue && !editFlag) {
     const todoDiv = document.createElement("div");
     todoDiv.classList.add("todo");
 
+    const id = new Date().getTime().toString();
+    let idAttribute = document.createAttribute("data-id");
+    idAttribute.value = id;
+
     const newTodo = document.createElement("li");
+    newTodo.setAttributeNode(idAttribute);
     newTodo.innerText = inputValue;
-    
     newTodo.classList.add("todo-item");
     todoDiv.appendChild(newTodo);
-
-    saveLocalTodos(inputValue);
 
     // Check button
     const completedButton = document.createElement("button");
     completedButton.innerHTML = '<i class="fas fa-check"></i>';
     completedButton.classList.add("complete-btn");
     todoDiv.appendChild(completedButton);
-
     // Rename button
     const renameButton = document.createElement("button");
     renameButton.innerHTML = '<i class="fas fa-pencil-alt"></i>';
     renameButton.classList.add("rename-btn");
     todoDiv.appendChild(renameButton);
-    
     // Delete button
     const trashButton = document.createElement("button");
     trashButton.innerHTML = '<i class="fas fa-trash"></i>';
@@ -59,11 +62,25 @@ function addTodo(event) {
     // adding todo item to the list
     todoList.appendChild(todoDiv);
 
-    todoInput.value = "";
+    saveLocalTodos(inputValue);
     displayAlert("Todo successfully added", "success");
+    setBackToDefault();
   } else {
     displayAlert("Please enter a todo", "danger");
   }  
+}
+
+// clear items
+function clearItems() {
+  console.log('ok');
+  const todoItems = document.querySelectorAll(".todo");
+  if (todoItems.length > 0) {
+    todoItems.forEach(function (item) {
+      todoList.removeChild(item);
+    });
+  }
+  setBackToDefault();
+  localStorage.removeItem("todos");
 }
 
 // display alert
@@ -75,6 +92,13 @@ function displayAlert(text, action) {
     alert.textContent = "";
     alert.classList.remove(`alert-${action}`);
   }, 2000);
+}
+
+function setBackToDefault() {
+  todoInput.value = "";
+  editFlag = false;
+  editID = "";
+  // default submit icon
 }
 
 function actionCheck(e) {

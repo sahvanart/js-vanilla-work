@@ -44,9 +44,13 @@ form button {
   transition: all 0.3s ease;
 }
 
-form button:hover {
+form button.todo-button:hover {
   color: #feed70;
   transform: rotate(180deg);
+}
+
+.clear-btn:hover{
+  color: #feed70;
 }
 
 .alert {
@@ -76,6 +80,7 @@ form button:hover {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 1rem;
 }
 
 .todo-list {
