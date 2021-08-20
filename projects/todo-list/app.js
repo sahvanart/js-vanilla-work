@@ -1,4 +1,4 @@
-// Selectors
+/****************************** Selectors ******************************/
 
 const todoInput = document.querySelector(".todo-input");
 const todoButton = document.querySelector(".todo-button");
@@ -8,12 +8,12 @@ const alert = document.querySelector(".alert");
 const clearBtn = document.querySelector(".clear-btn");
 
 
-// edit option variables
+// Edit option variables
 let editElement;
 let editFlag = false;
 let editID = "";
 
-// Event Listeners
+/****************************** Event Listeners ******************************/
 
 window.addEventListener("DOMContentLoaded", getTodos);
 todoButton.addEventListener("click", addTodo);
@@ -22,8 +22,15 @@ filterOption.addEventListener("input", filterTodo);
 clearBtn.addEventListener("click", clearItems);
 
 
-// Functions
+/****************************** Functions ******************************/
 
+/**
+ * Adds a todo item to the todo list or edits a todo item. 
+ * The function handles also the case where nothing is 
+ * entered but the input button is pressed.
+ * 
+ * @param {Object} event event associated with the 'add todo' button 
+ */
 function addTodo(event) {
   // prevent form from submitting
   event.preventDefault();
@@ -75,6 +82,11 @@ function addTodo(event) {
   }  
 }
 
+/**
+ * Deletes, checks or rename a todo item
+ * 
+ * @param {Object} e event associated with the action required by the user
+ */
 function actionCheck(e) {
   const item = e.target;
   
@@ -107,6 +119,11 @@ function actionCheck(e) {
   }
 }
 
+/**
+ * Applies the required filter and displays only the todos matching the filter
+ * 
+ * @param {*} e event associated to the filter button
+ */
 function filterTodo(e) {
   const todos = todoList.childNodes;
   todos.forEach(function (todo) {
@@ -132,7 +149,9 @@ function filterTodo(e) {
   });
 }
 
-// clear items
+/**
+ * Clears all todos from the list
+ */
 function clearItems() {
   const todoItems = document.querySelectorAll(".todo");
   if (todoItems.length > 0) {
@@ -144,7 +163,12 @@ function clearItems() {
   localStorage.removeItem("list");
 }
 
-// display alert
+/**
+ * Displays an alert
+ * 
+ * @param {string} text     message to be shown
+ * @param {string} action   part of the css name of either danger or warning alert 
+ */
 function displayAlert(text, action) {
   alert.textContent = text;
   alert.classList.add(`alert-${action}`);
@@ -155,6 +179,11 @@ function displayAlert(text, action) {
   }, 2000);
 }
 
+/**
+ * Sets back several useful variables to default values. 
+ * If a user is editing an item, and choses to delete an todo, this function will be 
+ * called in order to avoid issues. 
+ */
 function setBackToDefault() {
   todoInput.value = "";
   editFlag = false;
@@ -162,6 +191,10 @@ function setBackToDefault() {
   todoButton.innerHTML = '<i class="fas fa-plus"></i>';
 }
 
+/**
+ * Function that accesses the data from the local storage if there is any and
+ * displays the previous created todos if they exist.
+ */
 function getTodos() {
   let todos;
   if (localStorage.getItem("list") === null) {
@@ -199,6 +232,12 @@ function getTodos() {
   });
 }
 
+/**
+ * Stores in the local storage an array containg all the information about a todo
+ *  
+ * @param {string} id     todo id  
+ * @param {string} value  todo value
+ */
 function addToLocalStorage(id, value) {
   const todoItems = { id, value };
   let items = getLocalStorage();
@@ -206,12 +245,23 @@ function addToLocalStorage(id, value) {
   localStorage.setItem("list", JSON.stringify(items));
 }
 
+/**
+ * Gets the data from the local storage in a workable format
+ * 
+ * @returns {array} array containing todos properties and values 
+ */
 function getLocalStorage() {
   return localStorage.getItem("list")
     ? JSON.parse(localStorage.getItem("list"))
     : [];
 }
 
+/**
+ * Called when editing a todo name, updates the localstorage 
+ * 
+ * @param {string} id     todo id 
+ * @param {string} value  todo value
+ */
 function editLocalStorage(id, value) {
   let items = getLocalStorage();
 
@@ -224,6 +274,11 @@ function editLocalStorage(id, value) {
   localStorage.setItem("list", JSON.stringify(items));
 }
 
+/**
+ * Called when deleting a todo, removes it from the localstorage
+ * 
+ * @param {string} id 
+ */
 function removeFromLocalStorage(id) {
   let items = getLocalStorage();
 
