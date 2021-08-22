@@ -89,12 +89,12 @@ function addTodo(event) {
  */
 function actionCheck(e) {
   const item = e.target;
-  
+  todoID = e.target.parentElement.firstElementChild.dataset.id;
+
   // delete todo
   if (item.classList[0] === "trash-btn") {
     const todo = item.parentElement;
     todo.classList.add("fall");
-    todoID = e.target.parentElement.firstElementChild.dataset.id;
     removeFromLocalStorage(todoID);
     todo.addEventListener("transitionend", function () {
       todo.remove();
@@ -106,6 +106,9 @@ function actionCheck(e) {
   if (item.classList[0] === "complete-btn") {
     const todo = item.parentElement;
     todo.classList.toggle("completed");
+    checkcompletedLocalStorage(todoID)   ?
+    completedLocalStorage(todoID, false) :
+    completedLocalStorage(todoID, true);
   }
 
   // edit todo
@@ -207,8 +210,14 @@ function getTodos() {
 
     const todoDiv = document.createElement("div");
     todoDiv.classList.add("todo");
+    if (todo.completed) {
+      todoDiv.classList.add("completed");
+    }
 
+    let idAttribute = document.createAttribute("data-id");
+    idAttribute.value = todo.id;
     const newTodo = document.createElement("li");
+    newTodo.setAttributeNode(idAttribute);
     newTodo.innerText = todo.value;
     newTodo.classList.add("todo-item");
     todoDiv.appendChild(newTodo);
@@ -275,6 +284,35 @@ function editLocalStorage(id, value) {
 }
 
 /**
+ * Called when checking a todo, inserts a completed property 
+ * 
+ * @param {string} id     todo id 
+ * @param {string} value  todo value
+ */
+function completedLocalStorage(id, bool) {
+  let items = getLocalStorage();
+
+  items = items.map(function (item) {
+    if (item.id === id) {
+      item.completed = bool;
+    }
+    return item;
+  });
+  localStorage.setItem("list", JSON.stringify(items));
+}
+
+function checkcompletedLocalStorage(id) {
+  let items = getLocalStorage();
+
+  items = items.map(function (item) {
+    if (item.id === id && item.completed === true) {
+      return true;
+    }
+  });
+  return false;
+}
+
+/**
  * Called when deleting a todo, removes it from the localstorage
  * 
  * @param {string} id 
@@ -289,4 +327,4 @@ function removeFromLocalStorage(id) {
   });
 
   localStorage.setItem("list", JSON.stringify(items));
-}
+}  
