@@ -7,7 +7,6 @@ const filterOption = document.querySelector(".filter-todo");
 const alert = document.querySelector(".alert");
 const clearBtn = document.querySelector(".clear-btn");
 
-
 // Edit option variables
 let editElement;
 let editFlag = false;
@@ -21,15 +20,14 @@ todoList.addEventListener("click", actionCheck);
 filterOption.addEventListener("input", filterTodo);
 clearBtn.addEventListener("click", clearItems);
 
-
 /****************************** Functions ******************************/
 
 /**
- * Adds a todo item to the todo list or edits a todo item. 
- * The function handles also the case where nothing is 
+ * Adds a todo item to the todo list or edits a todo item.
+ * The function handles also the case where nothing is
  * entered but the input button is pressed.
- * 
- * @param {Object} event event associated with the 'add todo' button 
+ *
+ * @param {Object} event event associated with the 'add todo' button
  */
 function addTodo(event) {
   // prevent form from submitting
@@ -79,12 +77,12 @@ function addTodo(event) {
     setBackToDefault();
   } else {
     displayAlert("Please enter a todo", "danger");
-  }  
+  }
 }
 
 /**
  * Deletes, checks or rename a todo item
- * 
+ *
  * @param {Object} e event associated with the action required by the user
  */
 function actionCheck(e) {
@@ -102,13 +100,16 @@ function actionCheck(e) {
     setBackToDefault();
   }
 
-  // check todo 
+  // check todo
   if (item.classList[0] === "complete-btn") {
     const todo = item.parentElement;
-    todo.classList.toggle("completed");
-    checkcompletedLocalStorage(todoID)   ?
-    completedLocalStorage(todoID, false) :
-    completedLocalStorage(todoID, true);
+    if (checkedLocalStorage(todoID)) {
+      completedLocalStorage(todoID, false);
+      todo.classList.remove("completed");
+    } else {
+      completedLocalStorage(todoID, true);
+      todo.classList.add("completed");
+    }
   }
 
   // edit todo
@@ -124,7 +125,7 @@ function actionCheck(e) {
 
 /**
  * Applies the required filter and displays only the todos matching the filter
- * 
+ *
  * @param {*} e event associated to the filter button
  */
 function filterTodo(e) {
@@ -168,9 +169,9 @@ function clearItems() {
 
 /**
  * Displays an alert
- * 
+ *
  * @param {string} text     message to be shown
- * @param {string} action   part of the css name of either danger or warning alert 
+ * @param {string} action   part of the css name of either danger or warning alert
  */
 function displayAlert(text, action) {
   alert.textContent = text;
@@ -183,9 +184,9 @@ function displayAlert(text, action) {
 }
 
 /**
- * Sets back several useful variables to default values. 
- * If a user is editing an item, and choses to delete an todo, this function will be 
- * called in order to avoid issues. 
+ * Sets back several useful variables to default values.
+ * If a user is editing an item, and choses to delete an todo, this function will be
+ * called in order to avoid issues.
  */
 function setBackToDefault() {
   todoInput.value = "";
@@ -207,7 +208,6 @@ function getTodos() {
   }
 
   todos.forEach(function (todo) {
-
     const todoDiv = document.createElement("div");
     todoDiv.classList.add("todo");
     if (todo.completed) {
@@ -243,8 +243,8 @@ function getTodos() {
 
 /**
  * Stores in the local storage an array containg all the information about a todo
- *  
- * @param {string} id     todo id  
+ *
+ * @param {string} id     todo id
  * @param {string} value  todo value
  */
 function addToLocalStorage(id, value) {
@@ -256,8 +256,8 @@ function addToLocalStorage(id, value) {
 
 /**
  * Gets the data from the local storage in a workable format
- * 
- * @returns {array} array containing todos properties and values 
+ *
+ * @returns {array} array containing todos properties and values
  */
 function getLocalStorage() {
   return localStorage.getItem("list")
@@ -266,9 +266,9 @@ function getLocalStorage() {
 }
 
 /**
- * Called when editing a todo name, updates the localstorage 
- * 
- * @param {string} id     todo id 
+ * Called when editing a todo name, updates the localstorage
+ *
+ * @param {string} id     todo id
  * @param {string} value  todo value
  */
 function editLocalStorage(id, value) {
@@ -284,9 +284,9 @@ function editLocalStorage(id, value) {
 }
 
 /**
- * Called when checking a todo, inserts a completed property 
- * 
- * @param {string} id     todo id 
+ * Called when checking a todo, inserts a completed property
+ *
+ * @param {string} id     todo id
  * @param {string} value  todo value
  */
 function completedLocalStorage(id, bool) {
@@ -301,21 +301,25 @@ function completedLocalStorage(id, bool) {
   localStorage.setItem("list", JSON.stringify(items));
 }
 
-function checkcompletedLocalStorage(id) {
+function checkedLocalStorage(id) {
+  console.log(id);
+  let checked;
   let items = getLocalStorage();
-
-  items = items.map(function (item) {
-    if (item.id === id && item.completed === true) {
-      return true;
+  console.log(items);
+  items.forEach((item) => {
+    if (item.id === id && item.completed) {
+      checked = true;
+    } else {
+      checked = false;
     }
   });
-  return false;
+  return checked;
 }
 
 /**
  * Called when deleting a todo, removes it from the localstorage
- * 
- * @param {string} id 
+ *
+ * @param {string} id
  */
 function removeFromLocalStorage(id) {
   let items = getLocalStorage();
@@ -327,4 +331,4 @@ function removeFromLocalStorage(id) {
   });
 
   localStorage.setItem("list", JSON.stringify(items));
-}  
+}
