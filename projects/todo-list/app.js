@@ -302,18 +302,13 @@ function completedLocalStorage(id, bool) {
 }
 
 function checkedLocalStorage(id) {
-  console.log(id);
-  let checked;
   let items = getLocalStorage();
-  console.log(items);
-  items.forEach((item) => {
+  for (const item of items) {
     if (item.id === id && item.completed) {
-      checked = true;
-    } else {
-      checked = false;
+      return true;
     }
-  });
-  return checked;
+  }
+  return false;
 }
 
 /**
