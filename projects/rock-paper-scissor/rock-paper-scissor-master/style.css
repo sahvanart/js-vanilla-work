@@ -4,10 +4,13 @@
   box-sizing: border-box;
 }
 
+body {
+  font-family: sans-serif;
+}
+
 section {
   height: 100vh;
   background-color: rgb(32, 34, 61);
-  font-family: sans-serif;
 }
 
 i {
@@ -61,11 +64,13 @@ i {
   color: rgb(224, 224, 224);
   font-size: 20px;
   background: rgb(45, 117, 96);
-  border-radius: 3px;
+  border-radius: 50px;
   cursor: pointer;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 .match {
+  height: 30vh;
   position: absolute;
   top: 50%;
   left: 50%;
