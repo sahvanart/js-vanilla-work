@@ -73,6 +73,8 @@ i {
   cursor: pointer;
 }
 
+/************************************* neon button ****************************************/
+
 .intro button {
   font-size: 4rem;
   background-color: transparent;
@@ -133,6 +135,8 @@ i {
 .intro button:hover::after {
   opacity: 1;
 }
+
+/*******************************************************************************************/
 
 .match {
   height: 30vh;
