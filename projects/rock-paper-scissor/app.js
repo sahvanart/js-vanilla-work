@@ -2,7 +2,6 @@ const game = () => {
   let pScore = 0;
   let cScore = 0;
 
-  //Start the Game
   const startGame = () => {
     const playBtn = document.querySelector(".intro button");
     const introScreen = document.querySelector(".intro");
@@ -13,7 +12,7 @@ const game = () => {
       match.classList.add("fadeIn");
     });
   };
-  //Play Match
+  
   const playMatch = () => {
     const options = document.querySelectorAll(".options button");
     const playerHand = document.querySelector(".player-hand");
@@ -25,7 +24,7 @@ const game = () => {
         this.style.animation = "";
       });
     });
-    //Computer Options
+  
     const computerOptions = ["rock", "paper", "scissors"];
 
     options.forEach(option => {
@@ -41,9 +40,13 @@ const game = () => {
           playerHand.src = `./assets/${this.textContent}.png`;
           computerHand.src = `./assets/${computerChoice}.png`;
         }, 2000);
-        //Animation
-        playerHand.style.animation = "shakePlayer 2s ease";
-        computerHand.style.animation = "shakeComputer 2s ease";
+
+        playerHand.style.animation = "shakePlayer 2s ease-in-out";
+        computerHand.style.animation = "shakeComputer 2s ease-in-out";
+
+        // closed hands before each match
+        playerHand.src = `./assets/rock.png`;
+        computerHand.src = `./assets/rock.png`;
       });
     });
   };
@@ -68,13 +71,9 @@ const game = () => {
       if (computerChoice === "scissors") {
         winner.textContent = "Player Wins!";
         pScore++;
-        updateScore();
-        return;
       } else {
         winner.textContent = "Computer Wins!";
         cScore++;
-        updateScore();
-        return;
       }
     }
     //Check for Paper
@@ -82,13 +81,9 @@ const game = () => {
       if (computerChoice === "scissors") {
         winner.textContent = "Computer Wins!";
         cScore++;
-        updateScore();
-        return;
       } else {
         winner.textContent = "Player Wins!";
         pScore++;
-        updateScore();
-        return;
       }
     }
     //Check for Scissors
@@ -96,21 +91,16 @@ const game = () => {
       if (computerChoice === "rock") {
         winner.textContent = "Computer Wins!";
         cScore++;
-        updateScore();
-        return;
       } else {
         winner.textContent = "Player Wins!";
         pScore++;
-        updateScore();
-        return;
       }
     }
+    updateScore();
   };
 
-  //Is call all the inner function
   startGame();
   playMatch();
 };
 
-//start the game function
 game();
