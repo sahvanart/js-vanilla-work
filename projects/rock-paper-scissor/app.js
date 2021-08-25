@@ -1,8 +1,6 @@
-let pScore = 0;
-let cScore = 0;
-
 const game = () => {
-
+  var pScore = 0;
+  var cScore = 0;
 
   const startGame = () => {
     const playBtn = document.querySelector(".intro button");
@@ -17,7 +15,9 @@ const game = () => {
   };
   
   const playMatch = () => {
-    const options = document.querySelectorAll(".options button");
+    options = document.querySelectorAll(".options button");
+    playButton = document.querySelector(".restart");
+
     const playerHand = document.querySelector(".player-hand");
     const computerHand = document.querySelector(".computer-hand");
     const hands = document.querySelectorAll(".hands img");
@@ -105,48 +105,26 @@ const game = () => {
     };
 
     const checkScore = () => {
-      const optionsDiv = document.querySelector(".options");
-
-      if (pScore === 3) {
-        winner.textContent += ` Player wins!`;
-        const restartBtn = document.createElement('button');
-        restartBtn.innerHTML = 'Play again!';
-        optionsDiv.appendChild(restartBtn);
-      }
-      if (cScore === 3) {
-        winner.textContent += ` Computer wins!`;
-        const restartBtn = document.createElement('button');
-        restartBtn.innerHTML = 'Play again!';
-        optionsDiv.appendChild(restartBtn);
-      }
+      setTimeout(() => {
+        if (pScore === 3) {
+          winner.textContent += ` Player wins! Play again ?`;
+          pScore = cScore = 0;
+          updateScore();
+        }
+        if (cScore === 3) {
+          winner.textContent += ` Computer wins! Play again ?`;
+          pScore = cScore = 0;
+          updateScore();
+        }
+      }, 1000);
     };
 
-    checkScore();
     updateScore();
+    checkScore();
   };
 
   startGame();
   playMatch();
 };
 
-const restart = () => {
-  const playButton = document.querySelector(".options .restart button");
-  // console.log(document.querySelector(".options button"));
-  if (pScore === 3 || cScore === 3) {
-    playButton.addEventListener("click", () => {
-      pScore = 0;
-      cScore = 0;
-      playerHand.src = `./assets/rock.png`;
-      computerHand.src = `./assets/rock.png`;
-      optionsDiv.innerHTML = `
-        <button class="rock">rock<i class="fas fa-gem"></i></button>
-        <button class="paper">paper<i class="fas fa-leaf"></i></button>
-        <button class="scissors">scissors<i class="fas fa-cut"></i></button>
-      `;
-      winner.textContent = 'Choose an option.';
-    });
-  }
-};
-
 game();
-restart();
