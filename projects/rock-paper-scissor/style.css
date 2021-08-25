@@ -20,6 +20,7 @@ section {
 
 i {
   font-size: 2rem;
+  padding-right: 1rem;
 }
 
 .options i {
@@ -43,7 +44,7 @@ i {
 .score p {
   text-align: center;
   padding: 0.75rem;
-  font-size: 1.75rem;
+  font-size: 2.75rem;
 }
 
 .intro {
@@ -60,7 +61,7 @@ i {
   font-size: 50px;
 }
 
-.match button {
+.match button  {
   padding: 1rem;
   width: 10rem;
   font-size: 1.5rem;
@@ -69,7 +70,7 @@ i {
   color: rgb(224, 224, 224);
   background: var(--clr-bg);
   border:rgb(224, 224, 224) 2px solid;
-  border-radius: 50px;
+  border-radius: 5px;
   cursor: pointer;
 }
 
@@ -137,26 +138,63 @@ i {
 }
 
 /*******************************************************************************************/
+.options button {
+  margin: 0 1rem;
+}
+
+.options button:hover {
+  color: var(--clr-neon);
+  border-color: var(--clr-neon);
+}
+
+.play button {
+  font-size: 4rem;
+  background-color: transparent;
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--clr-neon);
+  border: var(--clr-neon) 0.125em solid;
+  padding: 0.25em 1em;
+  border-radius: 0.25em;
+
+  text-shadow: 0 0 0.125em hsl(0 0% 100% / 0.3), 0 0 0.45em currentColor;
+
+  box-shadow: inset 0 0 0.25em 0 var(--clr-neon), 0 0 0.25em 0 var(--clr-neon);
+
+  position: relative;
+}
 
 .match {
   height: 30vh;
   position: absolute;
   top: 50%;
   left: 50%;
+  width: 100%;
   transform: translate(-50%, -50%);
   transition: opacity 0.5s ease 0.5s;
 }
+
 .winner {
   color: rgb(224, 224, 224);
   text-align: center;
-  font-size: 50px;
+  font-size: 2.5rem;
 }
 
-.hands,
+.hands{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
 .options {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
+}
+.options button:hover {
+  color: var(--clr-neon);
+  border-color: var(--clr-neon);
 }
 
 .player-hand {
