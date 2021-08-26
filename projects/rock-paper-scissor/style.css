@@ -38,6 +38,7 @@ i {
 
 .score h2 {
   font-size: 2rem;
+  font-weight: 400;
   text-align: center;
   padding-top: 2rem;
 }
@@ -59,6 +60,7 @@ i {
 
 .intro h1 {
   font-size: 50px;
+  font-weight: 500;
 }
 
 .match button  {
@@ -179,6 +181,11 @@ i {
   color: rgb(224, 224, 224);
   text-align: center;
   font-size: 2.5rem;
+  font-weight: 500;
+}
+
+.neon {
+  color: var(--clr-neon);
 }
 
 .hands{

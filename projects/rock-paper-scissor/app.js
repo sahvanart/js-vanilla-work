@@ -35,7 +35,10 @@ const game = () => {
         //Computer Choice
         const computerNumber = Math.floor(Math.random() * 3);
         const computerChoice = computerOptions[computerNumber];
-
+        
+        if (winner.classList.contains("neon")) {
+        winner.classList.remove("neon");
+        }
         winner.textContent= `You chose ${this.textContent}...`;
 
         setTimeout(() => {
@@ -107,16 +110,18 @@ const game = () => {
     const checkScore = () => {
       setTimeout(() => {
         if (pScore === 3) {
-          winner.textContent += ` Player wins! Play again ?`;
+          winner.classList.add("neon");
+          winner.textContent = ` You won! Play again ?`;
           pScore = cScore = 0;
           updateScore();
         }
         if (cScore === 3) {
-          winner.textContent += ` Computer wins! Play again ?`;
+          winner.classList.add("neon");
+          winner.textContent = ` You lost... Play again ?`;
           pScore = cScore = 0;
           updateScore();
         }
-      }, 1000);
+      }, 1500);
     };
 
     updateScore();
