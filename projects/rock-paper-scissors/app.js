@@ -7,7 +7,6 @@ const game = () => {
     const introScreen = document.querySelector(".intro");
     const match = document.querySelector(".match");
 
-
     playBtn.addEventListener("click", () => {
       introScreen.classList.add("fadeOut");
       match.classList.add("fadeIn");
@@ -15,9 +14,7 @@ const game = () => {
   };
   
   const playMatch = () => {
-    options = document.querySelectorAll(".options button");
-    playButton = document.querySelector(".restart");
-
+    const options = document.querySelectorAll(".options button");
     const playerHand = document.querySelector(".player-hand");
     const computerHand = document.querySelector(".computer-hand");
     const hands = document.querySelectorAll(".hands img");
@@ -32,12 +29,11 @@ const game = () => {
   
     options.forEach(option => {
       option.addEventListener("click", function() {
-        //Computer Choice
         const computerNumber = Math.floor(Math.random() * 3);
         const computerChoice = computerOptions[computerNumber];
         
         if (winner.classList.contains("neon")) {
-        winner.classList.remove("neon");
+          winner.classList.remove("neon");
         }
         winner.textContent= `You chose ${this.textContent}...`;
 
@@ -58,7 +54,6 @@ const game = () => {
   };
 
   const compareHands = (playerChoice, computerChoice) => {
-
     const winner = document.querySelector(".winner");
 
     //Check for a tie
