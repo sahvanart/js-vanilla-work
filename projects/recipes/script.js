@@ -74,18 +74,20 @@ function addMeal(mealData, random = false) {
     `;
 
     const btn = meal.querySelector(".meal-body .fav-btn");
+    const fav = document.getElementById("fav-popup");
     const img = meal.querySelector("img");
-    const h4 = meal.querySelector("h4");
+    const h4 = meal.querySelector("h4");  
 
     btn.addEventListener("click", () => {
         if (btn.classList.contains("active")) {
             removeMealLS(mealData.idMeal);
             btn.classList.remove("active");
+            fav.classList.remove("active");
         } else {
             addMealLS(mealData.idMeal);
             btn.classList.add("active");
+            fav.classList.add("active");
         }
-
         fetchFavMeals();
     });
 
@@ -209,6 +211,7 @@ function showMealInfo(mealData) {
 
     // show the popup
     mealPopup.classList.remove("hidden");
+
 }
 
 searchBtn.addEventListener("click", async () => {
