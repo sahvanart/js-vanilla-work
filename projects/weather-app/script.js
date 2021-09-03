@@ -26,12 +26,11 @@ let weather = {
       "https://openweathermap.org/img/wn/" + icon + ".png";
     document.querySelector(".description").innerText = description;
     document.querySelector(".temp").innerText = temp.toFixed() + "°C";
-    
-    document.querySelector(".temp_min").innerText = "Temp min: " + temp_min + "°C";
-    document.querySelector(".temp_max").innerText = "Temp max: " + temp_max + "°C";
-    document.querySelector(".feels_like").innerText = "Feels like: " + feels_like + "°C";
-    document.querySelector(".humidity").innerText = "Humidity: " + humidity + "%";
-    document.querySelector(".wind").innerText = "Wind speed: " + speed + " km/h";
+    document.querySelector(".feels_like").innerHTML = "<p>Feels like</p><p>" + feels_like + "°C</p>";
+    document.querySelector(".temp_min").innerHTML = "<p>Temp min</p><p>" + temp_min + "°C</p>";
+    document.querySelector(".temp_max").innerHTML = "<p>Temp max</p><p>" + temp_max + "°C</p>";
+    document.querySelector(".humidity").innerHTML = "<p>Humidity</p><p>" + humidity + "%</p>";
+    document.querySelector(".wind").innerHTML = "<p>Wind speed</p><p>" + speed + "km/h</p>";
     document.querySelector(".weather").classList.remove("loading");
     // test if image exists
     document.body.style.backgroundImage =

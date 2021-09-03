@@ -97,3 +97,14 @@ h1.temp {
 .temp {
   text-align: center;
 }
+
+.feels_like,
+.temp_min,
+.temp_max,
+.humidity,
+.wind {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 3rem;
+}
