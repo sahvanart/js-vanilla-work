@@ -316,6 +316,12 @@ footer p a:hover {
 
 /* responsiveness */
 
+@media (min-width: 1000px) {
+  header {
+    height: 10vh;
+  }
+}
+
 @media (max-width: 1000px) {
   header {
     flex-direction: column;
@@ -354,5 +360,4 @@ footer p a:hover {
   header .nav li:nth-child(2) {
     margin-right: 0;
   }
-
 }
