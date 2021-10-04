@@ -121,7 +121,13 @@ main {
   box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14),
     0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.3);
   background-size: cover;
+  border: 2px solid transparent;
   /* cursor: pointer; */
+}
+
+.card:hover {
+  transition: 250ms;
+  border: 2px solid #cab000;
 }
 
 .card::before {
@@ -151,6 +157,21 @@ main {
 
 .card:hover .play-button {
   transform: scale(1.1);
+  animation-name: toggle-play-button;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes toggle-play-button {
+  0% {
+    fill: #14be77;
+  }
+  50% {
+    fill: rgba(0, 0, 0, 0.75);
+  }
+  100% {
+    fill: #14be77;
+  }
 }
 
 .card:hover .play-button .polygon {
