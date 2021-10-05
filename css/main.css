@@ -12,9 +12,17 @@ body {
 section.main {
   display: grid;
   grid-template-columns: 1fr;
-  background-color: #444444;
+  background-color: #292929;
 }
 
+h2 {
+  text-align: center;
+  color: #14be77;
+}
+
+.txt-type > .txt {
+  border-right: 1px solid #14be77;
+}
 /* header */
 
 header {
